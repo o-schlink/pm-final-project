@@ -1,0 +1,216 @@
+<section class="anchors" aria-label="Strategic anchors">
+  <article class="anchor">
+    <div class="label">Persona</div>
+    <div class="value">Responsible Payer</div>
+  </article>
+  <article class="anchor">
+    <div class="label">Primary metric</div>
+    <div class="value">Post-creation manual contact rate</div>
+  </article>
+  <article class="anchor">
+    <div class="label">Moment of misery</div>
+    <div class="value">The payer does not clearly understand what amount is financed, what is excluded, and what commitment they are making.</div>
+  </article>
+  <article class="anchor">
+    <div class="label">Guardrail</div>
+    <div class="value">Agreement completion / activation rate and payment health must not worsen.</div>
+  </article>
+</section>
+
+<section class="toolbar" aria-label="Roadmap controls">
+  <div class="filters" aria-label="Filter by quadrant">
+    <button class="active" type="button" data-filter="all">All</button>
+    <button type="button" data-filter="Quick Win">Quick wins</button>
+    <button type="button" data-filter="Major Project">Major projects</button>
+    <button type="button" data-filter="Fill-In">Fill-ins</button>
+  </div>
+  <p class="summary" id="summary">Showing all roadmap items.</p>
+</section>
+
+<section class="roadmap" aria-label="Roadmap lanes">
+  <section class="lane" data-lane="NOW">
+    <div class="lane-header">
+      <div class="lane-title">
+        <strong>NOW</strong>
+        <span>3-week sprint</span>
+      </div>
+      <span class="count" data-count="NOW">3 items</span>
+    </div>
+    <div class="cards">
+      <article class="card" data-quadrant="Quick Win">
+        <div class="card-top">
+          <div>
+            <div class="id">C2</div>
+            <div class="feature-name">Financing Basis Summary</div>
+          </div>
+          <span class="badge quick">Quick Win</span>
+        </div>
+        <p class="rationale">Directly tests whether clearer financing-basis information reduces payer confusion and post-creation contact.</p>
+        <div class="detail">Core test: can payers correctly identify what is financed, what is excluded, and what they are committing to before confirmation?</div>
+      </article>
+
+      <article class="card" data-quadrant="Quick Win">
+        <div class="card-top">
+          <div>
+            <div class="id">C3</div>
+            <div class="feature-name">Payment Commitment Preview</div>
+          </div>
+          <span class="badge quick">Quick Win</span>
+        </div>
+        <p class="rationale">Helps payers understand monthly payment, duration and total repayment before confirming.</p>
+        <div class="detail">Keeps the pilot focused on decision clarity before commitment, without expanding into plan servicing.</div>
+      </article>
+
+      <article class="card" data-quadrant="Quick Win">
+        <div class="card-top">
+          <div>
+            <div class="id">C12</div>
+            <div class="feature-name">Self-Service Funnel & Contact Reason Tracking</div>
+          </div>
+          <span class="badge quick">Quick Win</span>
+        </div>
+        <p class="rationale">Ensures we can measure whether contacts decrease for the right reasons instead of optimizing a proxy blindly.</p>
+        <div class="detail">Protects the team from confusing correlation with causation by capturing completion, abandonment and help-intent signals.</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="lane" data-lane="NEXT">
+    <div class="lane-header">
+      <div class="lane-title">
+        <strong>NEXT</strong>
+        <span>Following 1-2 sprints</span>
+      </div>
+      <span class="count" data-count="NEXT">3 items</span>
+    </div>
+    <div class="cards">
+      <article class="card" data-quadrant="Quick Win">
+        <div class="card-top">
+          <div>
+            <div class="id">C5</div>
+            <div class="feature-name">Plan Change Impact Preview</div>
+          </div>
+          <span class="badge quick">Quick Win</span>
+        </div>
+        <p class="rationale">Helps payers understand the impact of changes before confirming, but belongs after the initial clarity test.</p>
+        <div class="detail">Good follow-up once the team knows whether basis clarity is a real driver of manual contact reduction.</div>
+      </article>
+
+      <article class="card" data-quadrant="Quick Win">
+        <div class="card-top">
+          <div>
+            <div class="id">C7</div>
+            <div class="feature-name">Resolve Returned Direct Debit</div>
+          </div>
+          <span class="badge quick">Quick Win</span>
+        </div>
+        <p class="rationale">Supported by payment-health data, but should follow once contact reasons are better understood.</p>
+        <div class="detail">Useful if contact reason data confirms failed collection is a high-volume, addressable self-service scenario.</div>
+      </article>
+
+      <article class="card" data-quadrant="Quick Win">
+        <div class="card-top">
+          <div>
+            <div class="id">C9</div>
+            <div class="feature-name">Partner Context in Communication</div>
+          </div>
+          <span class="badge quick">Quick Win</span>
+        </div>
+        <p class="rationale">Improves recognition and trust, but is less directly tied to the core financing-basis confusion.</p>
+        <div class="detail">Likely helpful for trust and message recognition, but should not outrank the direct clarity test.</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="lane" data-lane="LATER">
+    <div class="lane-header">
+      <div class="lane-title">
+        <strong>LATER</strong>
+        <span>Backlog</span>
+      </div>
+      <span class="count" data-count="LATER">4 items</span>
+    </div>
+    <div class="cards">
+      <article class="card" data-quadrant="Major Project">
+        <div class="card-top">
+          <div>
+            <div class="id">C1</div>
+            <div class="feature-name">Responsible Payer Identification</div>
+          </div>
+          <span class="badge major">Major Project</span>
+        </div>
+        <p class="rationale">Strategically important, but likely touches data model, communication logic and contractual flow.</p>
+        <div class="detail">High value for B2B2C actor separation, but too foundational for the first clarity sprint.</div>
+      </article>
+
+      <article class="card" data-quadrant="Major Project">
+        <div class="card-top">
+          <div>
+            <div class="id">C4</div>
+            <div class="feature-name">Add Later Costs to Existing Plan</div>
+          </div>
+          <span class="badge major">Major Project</span>
+        </div>
+        <p class="rationale">Highly relevant for dynamic cost journeys, but too complex for the first pilot.</p>
+        <div class="detail">Strong vertical-fit candidate for driving schools, but requires eligibility, calculation and servicing decisions.</div>
+      </article>
+
+      <article class="card" data-quadrant="Major Project">
+        <div class="card-top">
+          <div>
+            <div class="id">C6</div>
+            <div class="feature-name">Post-Creation Plan Management Hub</div>
+          </div>
+          <span class="badge major">Major Project</span>
+        </div>
+        <p class="rationale">Valuable, but risks becoming a broad portal initiative.</p>
+        <div class="detail">Should be broken down after the first pilot identifies which post-creation needs are actually driving contact.</div>
+      </article>
+
+      <article class="card" data-quadrant="Fill-In">
+        <div class="card-top">
+          <div>
+            <div class="id">C11</div>
+            <div class="feature-name">Exception & Handoff Status Tracking</div>
+          </div>
+          <span class="badge fill">Fill-In</span>
+        </div>
+        <p class="rationale">Useful for transparency, but manages exceptions rather than solving the core clarity problem.</p>
+        <div class="detail">Good supporting feature once exception volume and contact reasons are known.</div>
+      </article>
+    </div>
+  </section>
+</section>
+
+<section class="cut-section" aria-label="Cut list">
+  <div class="cut-header">
+    <div>
+      <h2>Cut List</h2>
+      <p class="subtitle">Items intentionally excluded from the pilot to protect focus.</p>
+    </div>
+    <button type="button" id="toggleCut">Hide cut list</button>
+  </div>
+  <div class="cut-list" id="cutList">
+    <article class="cut-card">
+      <div class="card-top">
+        <div>
+          <div class="id">C8</div>
+          <div class="feature-name">Partner-Initiated Prefill</div>
+        </div>
+        <span class="badge">Major Project</span>
+      </div>
+      <p class="rationale">Cut from this pilot because partner integration does not directly test payer clarity.</p>
+    </article>
+
+    <article class="cut-card">
+      <div class="card-top">
+        <div>
+          <div class="id">C10</div>
+          <div class="feature-name">Configurable Eligibility & Calculation Rules</div>
+        </div>
+        <span class="badge">Major Project</span>
+      </div>
+      <p class="rationale">Cut from this pilot because it risks turning the work into a platform rebuild before the core assumption is validated.</p>
+    </article>
+  </div>
+</section>
