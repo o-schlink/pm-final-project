@@ -1,23 +1,20 @@
-# Roadmap, PRD & Prototype
+# Roadmap, PRD & Prototype (Module 4)
 
-> **Module 4 · ★ Deliverable 4.** Repo file `04-roadmap/roadmap-prd-prototype.md` — part of your submission.
-> Do the lab in the **Module 4 · Exercise 1 Guide** (linked from the Module 4 deck), then click **⬇ Download .md** — it saves as this exact file. Commit it here.
-> It becomes the **Roadmap, PRD & Prototype** slide of your Module 6 final deck. (Your Module 4 · Exercise 2 PRD sprint lands in `prd-and-prototype.md`.)
+## Your strategic anchors
+- **Persona (M2), who are you solving for?:** Responsible Payer: a parent or self-paying customer who is financially responsible for a service and needs to understand exactly what the installment agreement covers.
+- **Primary success metric (M3), your leading indicator:** Post-creation manual contact rate for installment agreements. Baseline: 46.2K of 316K agreements, around 14.6%, have a manual contact attempt after creation.
+- **Moment of misery (M2), the specific friction blocking the goal:** The financing journey becomes confusing when the payer is not the service recipient, the final amount may still change, or it is unclear whether the plan covers the total treatment cost, a single invoice, a co-payment or the remaining balance. The payer is forced to make a financial decision without a clear picture of what they are committing to.
+- **Guardrail metric (M3), what must not drop or break:** Agreement completion / activation rate must not drop, and payment health must not worsen. Monitor direct debit return rate and extension rate as guardrails.
 
-## High-level product roadmap
+## Scan the backlog & set a human baseline
+- **My instinctive “quick wins” before touching the AI (2 to 3 feature IDs + why):** C2, C3, C12.
 
-_Future direction, key milestones, and phased execution over time._
+## Audit, override & decide
+- **Where did you override the AI? (feature + old vs. new score + why):** I would override the AI where it treats user-facing clarity features as automatically high value without proving that they reduce the primary metric. C2 Financing Basis Summary and C3 Payment Commitment Preview are strongly aligned with M2, but M3 only shows post-creation contact volume and payment/adjustment signals; it does not yet prove that lack of clarity is the main contact driver. I would therefore keep C2/C3 as strong candidates, but raise C12 Self-Service Funnel & Contact Reason Tracking as a critical pilot enabler because we need to validate the real contact reasons before scaling.
+- **Did the AI over-value a Sales/Eng request your M2 interviews don’t support?:** Yes, potentially C8 Partner-Initiated Prefill and C10 Configurable Eligibility & Calculation Rules. Both are strategically relevant, but AI can over-rationalize them because they sound like scalable platform solutions. The M2 persona evidence is about Responsible Payer confusion and commitment clarity, not primarily about partner integration or internal rule-engine architecture. These may be necessary later, but they should not outrank features that directly test whether payer clarity reduces post-creation contact.
+- **Did it underweight something your M3 cohort/funnel data strongly supports?:** es, it may underweight C12 and partly C7. M3 shows that agreements with post-creation contact have much higher direct debit return rates and extension rates, which means the post-creation phase is decision-relevant and measurable. However, this does not prove that returned direct debits are caused by poor product clarity. C12 is therefore especially important because it helps distinguish between causes such as confusion, affordability, timing, failed payment setup, partner behavior or legitimate servicing needs.
 
-_____
-
-## PRD snippets
-
-_The key elements of your simplified PRD._
-
-_____
-
-## Wireframes / prototype
-
-_A visual or interactive model of your proposed solution._
-
-_[screenshot or link to your prototype]_
+## Generate your interactive roadmap
+- **My “Now” lane (this sprint), the 2 to 3 quick wins I’ll build first:** C2 Financing Basis Summary, C3 Payment Commitment Preview, and C12 Self-Service Funnel & Contact Reason Tracking. C2 and C3 directly test whether clearer payer understanding reduces post-creation confusion. C12 is included because M3 shows a meaningful post-creation contact problem, but we do not yet know the real contact reasons; without measurement, we risk optimizing a proxy metric blindly.
+- **What I cut, and the “no” I’m protecting the scope from:** I cut C4 Add Later Costs to Existing Plan, C6 Post-Creation Plan Management Hub, C8 Partner-Initiated Prefill, and C10 Configurable Eligibility & Calculation Rules from the first pilot. These may be strategically important, but they are too broad or too foundational for an 8-week pilot. The “no” I am protecting is: no platform rebuild, no broad partner integration, and no assumption that contact reduction is caused by clarity before we validate the contact reasons.
+- **Prototype/roadmap screenshot link (paste into your deliverables):** o be added after the interactive roadmap is generated and screenshotted.
