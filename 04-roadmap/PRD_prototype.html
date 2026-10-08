@@ -1,0 +1,201 @@
+<section class="shell" aria-label="Financing Basis Summary prototype">
+  <nav class="stepper" aria-label="Prototype screens">
+    <button class="step active" type="button" data-screen="context">
+      <strong>1. Entry / Context</strong>
+      <span>Recognize payer, patient and invoice context</span>
+    </button>
+    <button class="step" type="button" data-screen="summary">
+      <strong>2. Financing Basis</strong>
+      <span>Understand what this plan covers</span>
+    </button>
+    <button class="step" type="button" data-screen="confirm">
+      <strong>3. Confirmation</strong>
+      <span>Review commitment and exclusions</span>
+    </button>
+  </nav>
+
+  <section class="screen active" id="context">
+    <h2>Your installment option</h2>
+    <p class="subtitle">Please review the service and payer information before continuing. This prototype uses fake sample data.</p>
+
+    <div class="grid">
+      <article class="card">
+        <div class="label">Partner</div>
+        <div class="value">SmileCare Orthodontics</div>
+        <p class="small">Orthodontic treatment invoice</p>
+      </article>
+
+      <article class="card">
+        <div class="label">Service recipient</div>
+        <div class="value">Emma Schneider</div>
+        <p class="small">Orthodontic patient, age 13</p>
+      </article>
+
+      <article class="card important">
+        <div class="label">Responsible payer</div>
+        <div class="value">Martin Schneider</div>
+        <p class="small">Father and financially responsible person</p>
+      </article>
+
+      <article class="card warning">
+        <div class="label">Role clarification</div>
+        <div class="value">Payer differs from patient</div>
+        <p class="small">Emma receives the treatment. Martin reviews and confirms the payment commitment.</p>
+      </article>
+    </div>
+
+    <div class="controls">
+      <button class="action secondary" type="button" data-help>I need help understanding this</button>
+      <button class="action primary" type="button" data-next="summary">Continue to financing summary</button>
+    </div>
+
+    <div class="signal" data-help-signal>
+      Help intent recorded locally for this prototype. In a real pilot, this would become a contact-reason signal.
+    </div>
+
+    <div class="feedback" aria-live="polite">
+      Prototype feedback: <strong data-status>Started context review</strong>
+    </div>
+  </section>
+
+  <section class="screen" id="summary">
+    <h2>What does this installment plan cover?</h2>
+    <p class="subtitle">This screen separates the treatment estimate, current invoice, expected reimbursement and financed amount.</p>
+
+    <div class="amount-grid">
+      <article class="amount excluded">
+        <div class="label">Treatment plan estimate</div>
+        <div class="value">EUR 4,800</div>
+        <p class="small">Not fully covered by this installment plan.</p>
+      </article>
+
+      <article class="amount">
+        <div class="label">Current private invoice</div>
+        <div class="value">EUR 1,200</div>
+        <p class="small">Current invoice from SmileCare Orthodontics.</p>
+      </article>
+
+      <article class="amount">
+        <div class="label">Expected reimbursement</div>
+        <div class="value">EUR 500</div>
+        <p class="small">Estimate only. Not guaranteed by BFS health finance.</p>
+      </article>
+
+      <article class="amount highlight">
+        <div class="label">Financed amount</div>
+        <div class="value large">EUR 700</div>
+        <p class="small">This is the amount covered by this installment plan.</p>
+      </article>
+    </div>
+
+    <div class="grid">
+      <article class="card important">
+        <h3>Your payment commitment</h3>
+        <div class="summary-row">
+          <span>Basis type</span>
+          <span>Reimbursement-adjusted remaining balance</span>
+        </div>
+        <div class="summary-row">
+          <span>Monthly payment</span>
+          <span>EUR 58.50</span>
+        </div>
+        <div class="summary-row">
+          <span>Duration</span>
+          <span>12 months</span>
+        </div>
+        <div class="summary-row">
+          <span>Total repayment amount</span>
+          <span>EUR 702</span>
+        </div>
+      </article>
+
+      <article class="card warning">
+        <h3>Not included in this plan</h3>
+        <ul class="list">
+          <li><span class="dot danger"></span><span>The full EUR 4,800 treatment estimate is not financed here.</span></li>
+          <li><span class="dot warn"></span><span>Future treatment changes or later invoices are not included unless shown separately.</span></li>
+          <li><span class="dot warn"></span><span>Insurance reimbursement is estimated and not guaranteed by BFS health finance.</span></li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="explanation" id="explanation">
+      <button type="button" id="toggleExplanation">What does this plan cover?</button>
+      <div class="explanation-content">
+        This installment plan covers EUR 700. That amount is the current private invoice of EUR 1,200 minus the expected reimbursement estimate of EUR 500. It does not cover the full treatment plan estimate of EUR 4,800 or future treatment changes.
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="action secondary" type="button" data-prev="context">Back</button>
+      <button class="action secondary" type="button" data-help>I need help understanding this</button>
+      <button class="action primary" type="button" data-next="confirm">Review before confirmation</button>
+    </div>
+
+    <div class="signal" data-help-signal>
+      Help intent recorded locally for this prototype. In a real pilot, this would become a contact-reason signal.
+    </div>
+
+    <div class="feedback" aria-live="polite">
+      Prototype feedback: <strong data-status>Reviewing financing basis</strong>
+    </div>
+  </section>
+
+  <section class="screen" id="confirm">
+    <h2>Confirm your understanding</h2>
+    <p class="subtitle">This is not a credit approval, legal advice, insurance decision or binding contract. It is a prototype confirmation screen.</p>
+
+    <div class="grid">
+      <article class="card important">
+        <h3>Commitment summary</h3>
+        <div class="summary-row">
+          <span>Responsible payer</span>
+          <span>Martin Schneider</span>
+        </div>
+        <div class="summary-row">
+          <span>Service recipient</span>
+          <span>Emma Schneider</span>
+        </div>
+        <div class="summary-row">
+          <span>Financed amount</span>
+          <span>EUR 700</span>
+        </div>
+        <div class="summary-row">
+          <span>Monthly payment</span>
+          <span>EUR 58.50 for 12 months</span>
+        </div>
+        <div class="summary-row">
+          <span>Total repayment amount</span>
+          <span>EUR 702</span>
+        </div>
+      </article>
+
+      <article class="card danger">
+        <h3>Please note</h3>
+        <ul class="list">
+          <li><span class="dot danger"></span><span>This plan does not cover the full EUR 4,800 treatment estimate.</span></li>
+          <li><span class="dot danger"></span><span>Later invoices and treatment changes are not included in this plan.</span></li>
+          <li><span class="dot danger"></span><span>Expected reimbursement is not guaranteed.</span></li>
+        </ul>
+      </article>
+    </div>
+
+    <p class="legal-note">
+      Prototype safety note: this screen must not be interpreted as credit approval, legal advice, a guaranteed reimbursement, or a binding contract. It demonstrates the clarity flow only.
+    </p>
+
+    <div class="controls">
+      <button class="action secondary" type="button" data-prev="summary">Back</button>
+      <button class="action secondary" type="button" data-help>I need help understanding this</button>
+      <button class="action primary" type="button" id="completeButton">I understand what this plan covers</button>
+    </div>
+
+    <div class="signal" data-help-signal>
+      Help intent recorded locally for this prototype. In a real pilot, this would become a contact-reason signal.
+    </div>
+
+    <div class="feedback" aria-live="polite">
+      Prototype feedback: <strong data-status>Ready for final understanding check</strong>
+    </div>
+  </section>
+</section>
