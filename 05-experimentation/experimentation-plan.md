@@ -1,25 +1,32 @@
-# Experimentation Plan
+# A/B Experiment Brief, Riverty business-unit case
 
-> **Module 5 · ★ Deliverable 5.** Repo file `05-experimentation/experimentation-plan.md` — part of your submission.
-> Do the lab in the **Module 5 · Exercise Guide** (linked from the Module 5 deck), then click **⬇ Download .md** — it saves as this exact file. Commit it here.
-> It becomes the **Experimentation Plan** slide of your Module 6 final deck.
-
-## Overview
-
-_A high-level validation strategy to test your hypothesis before full-scale development._
-
-_____
-
-## What you're testing
-
-| Element | Detail |
+## Parameters
+| Parameter | Decision |
 |---|---|
-| Hypothesis under test | _____ |
-| Experiment design (A/B, etc.) | _____ |
-| Primary metric | _____ |
-| Guardrail metric | _____ |
-| Decision rule (ship / kill / pivot) | _____ |
+| Feature under test | Financing Basis Summary before installment agreement confirmation |
+| Persona | Responsible Payer: a parent or self-paying customer who is financially responsible for a service and needs to understand exactly what the installment agreement covers. |
+| Expected outcome | Responsible Payers better understand what amount is financed, what is excluded, and what commitment they are making before confirmation, resulting in fewer manual contacts after agreement creation. |
+| Primary success metric | Post-creation manual contact rate for installment agreements |
+| Baseline rate | 14.6% overall baseline: 46.2K of 316K installment agreements have a manual contact attempt after creation. |
+| Guardrail metric | Agreement completion / activation rate |
+| Guardrail boundary | Synthetic target: completion / activation rate must not decrease by more than 1 percentage point versus control. Validate boundary with real funnel baseline before launch. |
+| Second guardrail | Payment health must not worsen: direct debit return rate and extension rate should not increase versus control. Payment health must not worsen: direct debit return rate and extension rate must not increase versus control. |
+| Minimum Detectable Effect | Synthetic target: 2 percentage point absolute reduction in post-creation manual contact rate, from 14.6% to 12.6%. |
+| Sample size per arm | 5,166 agreements per arm |
+| Traffic split | 50 / 50 between control and variant, if operationally acceptable. |
+| Test duration | Run until each arm reaches the required sample size and the post-creation contact observation window has completed. Synthetic planning assumption: 4-6 weeks, depending on eligible traffic volume. Run until each arm reaches at least 5,166 agreements and the fixed post-creation contact observation window is complete. Use a 30-day observation window after agreement creation. Synthetic planning assumption: 4-6 weeks to enroll users, plus the observation window, depending on eligible traffic volume. |
+| Significance threshold | p < 0.05, 80% power |
 
-## Findings & decision _(after running it)_
+## Control vs. Variant
+- **Control (A):** The current experience presents the installment agreement without a dedicated financing-basis summary before confirmation. The payer can see payment terms, but it is not made sufficiently clear whether the plan covers the full treatment cost, a single invoice, a co-payment, a reimbursement-adjusted balance, or another remaining amount. As a result, Responsible Payers may confirm without fully understanding what is financed, what is excluded, or what may change later, which can lead to post-creation manual contact.
+- **Variant (B):** Add one pre-confirmation Financing Basis Summary screen. The screen clearly shows the financed amount, financing basis type, included and excluded amounts, monthly payment, duration, total repayment amount, and a plain-language explanation of what the installment plan covers. It also highlights that future invoices, treatment changes or expected reimbursements are not included unless explicitly shown.
+- **Held constant (isolation check):** No changes to eligibility logic, risk decisioning, pricing, interest calculation, contract generation, payment collection, partner integration, onboarding flow, traffic source, reminder logic, post-creation servicing, or reminder communication. The only intended difference between control and variant is one added Financing Basis Summary screen before confirmation.
 
-_____
+## Hypothesis
+> I believe that Financing Basis Summary before installment agreement confirmation for Responsible Payer: a parent or self-paying customer who is financially responsible for a service and needs to understand exactly what the installment agreement covers. will result in Responsible Payers better understand what amount is financed, what is excluded, and what commitment they are making before confirmation, resulting in fewer manual contacts after agreement creation., as measured by a Synthetic target: 2 percentage point absolute reduction in post-creation manual contact rate, from 14.6% to 12.6%. change in Post-creation manual contact rate for installment agreements within Run until each arm reaches the required sample size and the post-creation contact observation window has completed. Synthetic planning assumption: 4-6 weeks, depending on eligible traffic volume. Run until each arm reaches at least 5,166 agreements and the fixed post-creation contact observation window is complete. Use a 30-day observation window after agreement creation. Synthetic planning assumption: 4-6 weeks to enroll users, plus the observation window, depending on eligible traffic volume.. We will protect Agreement completion / activation rate throughout the test.
+
+## Shipping criteria
+> We will **ship** if Post-creation manual contact rate for installment agreements improves by ≥ Synthetic target: 2 percentage point absolute reduction in post-creation manual contact rate, from 14.6% to 12.6%. at p < 0.05, 80% power and Agreement completion / activation rate does not reach Synthetic target: completion / activation rate must not decrease by more than 1 percentage point versus control. Validate boundary with real funnel baseline before launch. after Run until each arm reaches the required sample size and the post-creation contact observation window has completed. Synthetic planning assumption: 4-6 weeks, depending on eligible traffic volume. Run until each arm reaches at least 5,166 agreements and the fixed post-creation contact observation window is complete. Use a 30-day observation window after agreement creation. Synthetic planning assumption: 4-6 weeks to enroll users, plus the observation window, depending on eligible traffic volume..
+> We will **iterate** if direction is positive but lift is below the MDE.
+> We will **kill** if the primary metric shows no improvement or moves negatively.
+> The read date is fixed at the end of Run until each arm reaches the required sample size and the post-creation contact observation window has completed. Synthetic planning assumption: 4-6 weeks, depending on eligible traffic volume. Run until each arm reaches at least 5,166 agreements and the fixed post-creation contact observation window is complete. Use a 30-day observation window after agreement creation. Synthetic planning assumption: 4-6 weeks to enroll users, plus the observation window, depending on eligible traffic volume., no results reviewed before this date.
