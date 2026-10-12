@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>C2 Financing Basis Summary · Final Project Presentation</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Antarctican+Mono:wght@400;500&family=Saans:wght@400;600;700;800;900&display=swap");
+
+    :root {
+      --bg: #07162C;
+      --fg: #ffffff;
+      --muted: #ffffff;
+      --orange: #fb923c;
+      --orange-soft: #fdba74;
+      --cyan: #22d3ee;
+      --teal: #34d399;
+      --blue: #60a5fa;
+      --violet: #a78bfa;
+      --pink: #f472b6;
+      --card: rgba(255, 255, 255, 0.055);
+      --card-strong: rgba(255, 255, 255, 0.095);
+      --line: rgba(251, 146, 60, 0.25);
+      --line-cyan: rgba(34, 211, 238, 0.35);
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--fg);
+      font-family: "Saans", Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(34, 211, 238, 0.13), transparent 32rem),
+        radial-gradient(circle at 86% 18%, rgba(251, 146, 60, 0.16), transparent 34rem),
+        linear-gradient(180deg, #07162C 0%, #07162C 48%, #081b36 100%);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 50;
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .progress span {
+      display: block;
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--orange), var(--cyan), var(--teal));
+      transition: width 160ms ease;
+    }
+
+    .dots {
+      position: fixed;
+      top: 50%;
+      right: 22px;
+      z-index: 40;
+      display: grid;
+      gap: 12px;
+      transform: translateY(-50%);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.58);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+
+    .dot.active {
+      transform: scale(1.45);
+      border-color: var(--orange);
+      background: var(--orange);
+      box-shadow: 0 0 0 6px rgba(251, 146, 60, 0.14);
+    }
+
+    section {
+      position: relative;
+      display: grid;
+      min-height: 100vh;
+      scroll-snap-align: start;
+      padding: clamp(34px, 5vw, 68px);
+      isolation: isolate;
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      z-index: -1;
+      border: 1px solid rgba(251, 146, 60, 0.12);
+      border-radius: 24px;
+      pointer-events: none;
+    }
+
+    .slide {
+      display: grid;
+      width: min(1220px, 100%);
+      min-height: calc(100vh - clamp(68px, 10vw, 136px));
+      margin: auto;
+      gap: 24px;
+      align-content: center;
+    }
+
+    .slide-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+      padding-bottom: 16px;
+    }
+
+    .eyebrow,
+    .label,
+    .metric-label,
+    .pill,
+    .button {
+      font-family: "Antarctican Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--orange-soft);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      max-width: 960px;
+      font-size: clamp(4.4rem, 8.7vw, 9.5rem);
+      font-weight: 900;
+    }
+
+    h2 {
+      font-size: clamp(2.8rem, 5.4vw, 6.1rem);
+      font-weight: 900;
+    }
+
+    h3 {
+      font-size: clamp(1.1rem, 1.8vw, 1.7rem);
+      font-weight: 800;
+      line-height: 1.08;
+    }
+
+    p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: clamp(1rem, 1.45vw, 1.35rem);
+      line-height: 1.45;
+    }
+
+    .small {
+      font-size: 0.96rem;
+      line-height: 1.42;
+    }
+
+    .muted {
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    .hero-card,
+    .card,
+    .metric,
+    .timeline-step {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.035)),
+        rgba(7, 22, 44, 0.84);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-card {
+      display: grid;
+      gap: 30px;
+      padding: clamp(28px, 4.8vw, 58px);
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      right: -120px;
+      bottom: -180px;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(251, 146, 60, 0.24), transparent 62%);
+      pointer-events: none;
+    }
+
+    .card {
+      display: grid;
+      gap: 14px;
+      padding: clamp(20px, 2.6vw, 30px);
+    }
+
+    .callout {
+      border-color: rgba(34, 211, 238, 0.42);
+      background:
+        linear-gradient(145deg, rgba(34, 211, 238, 0.15), rgba(167, 139, 250, 0.08)),
+        rgba(7, 22, 44, 0.9);
+    }
+
+    .warning {
+      border-color: rgba(244, 114, 182, 0.42);
+      background:
+        linear-gradient(145deg, rgba(244, 114, 182, 0.14), rgba(251, 146, 60, 0.08)),
+        rgba(7, 22, 44, 0.9);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 32px;
+      padding: 7px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .pill.orange { border-color: rgba(251, 146, 60, 0.5); background: rgba(251, 146, 60, 0.16); }
+    .pill.cyan { border-color: rgba(34, 211, 238, 0.5); background: rgba(34, 211, 238, 0.15); }
+    .pill.teal { border-color: rgba(52, 211, 153, 0.5); background: rgba(52, 211, 153, 0.14); }
+    .pill.blue { border-color: rgba(96, 165, 250, 0.5); background: rgba(96, 165, 250, 0.14); }
+    .pill.violet { border-color: rgba(167, 139, 250, 0.5); background: rgba(167, 139, 250, 0.14); }
+    .pill.pink { border-color: rgba(244, 114, 182, 0.5); background: rgba(244, 114, 182, 0.14); }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      gap: 8px;
+      min-height: 46px;
+      padding: 12px 17px;
+      border: 1px solid rgba(251, 146, 60, 0.55);
+      border-radius: 999px;
+      color: #08111f;
+      background: linear-gradient(135deg, #fdba74, #fb923c);
+      box-shadow: 0 16px 36px rgba(251, 146, 60, 0.24);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 44px rgba(251, 146, 60, 0.32);
+    }
+
+    .cover-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .cover-pitch {
+      max-width: 850px;
+      font-size: clamp(1.25rem, 2vw, 1.9rem);
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .cover-footer {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .link-card {
+      min-width: 0;
+      padding: 17px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .link-card a,
+    .repo-link {
+      overflow-wrap: anywhere;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.94rem;
+      text-decoration: none;
+    }
+
+    .label,
+    .metric-label {
+      margin-bottom: 8px;
+      color: var(--orange-soft);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .big-callout {
+      position: relative;
+      padding-left: 26px;
+    }
+
+    .big-callout::before {
+      content: "";
+      position: absolute;
+      top: 24px;
+      bottom: 24px;
+      left: 0;
+      width: 5px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--cyan), var(--orange));
+    }
+
+    .journey {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .journey-step {
+      position: relative;
+      min-height: 138px;
+      padding: 18px;
+      border: 1px solid rgba(34, 211, 238, 0.28);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .journey-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      top: 50%;
+      right: -13px;
+      z-index: 2;
+      color: var(--orange);
+      font-family: "Antarctican Mono", monospace;
+      transform: translateY(-50%);
+    }
+
+    .journey-step strong {
+      display: block;
+      margin-bottom: 10px;
+      color: #fff;
+      font-size: 1rem;
+      line-height: 1.18;
+    }
+
+    .journey-step.misery {
+      border-color: rgba(244, 114, 182, 0.58);
+      background: linear-gradient(145deg, rgba(244, 114, 182, 0.17), rgba(255, 255, 255, 0.055));
+      box-shadow: 0 18px 42px rgba(244, 114, 182, 0.12);
+    }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .lane {
+      min-height: 270px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.052);
+    }
+
+    .lane h3 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 14px;
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .lane ul {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .lane li {
+      padding: 10px 11px;
+      border-radius: 12px;
+      color: rgba(255, 255, 255, 0.86);
+      background: rgba(255, 255, 255, 0.07);
+      font-size: 0.95rem;
+      line-height: 1.28;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .metric {
+      padding: 20px;
+    }
+
+    .metric-value {
+      margin: 0 0 6px;
+      color: #fff;
+      font-family: "Antarctican Mono", ui-monospace, monospace;
+      font-size: clamp(1.6rem, 3vw, 2.85rem);
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .metric p {
+      font-size: 0.92rem;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .experiment-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 18px;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .rule-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .rule-list li {
+      padding: 12px 13px;
+      border-left: 4px solid var(--cyan);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.065);
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 0.98rem;
+      line-height: 1.34;
+    }
+
+    .rule-list li:nth-child(2) { border-color: var(--orange); }
+    .rule-list li:nth-child(3) { border-color: var(--pink); }
+
+    .channel-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .thank-you {
+      text-align: center;
+    }
+
+    .thank-you .hero-card {
+      justify-items: center;
+    }
+
+    .thank-you h2 {
+      font-size: clamp(4.2rem, 8vw, 9rem);
+    }
+
+    .kbd-hint {
+      position: fixed;
+      left: 22px;
+      bottom: 18px;
+      z-index: 30;
+      color: rgba(255, 255, 255, 0.48);
+      font-family: "Antarctican Mono", ui-monospace, monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 980px) {
+      html {
+        scroll-snap-type: y proximity;
+      }
+
+      section {
+        padding: 28px 22px;
+      }
+
+      .slide {
+        min-height: calc(100vh - 56px);
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .cover-footer,
+      .experiment-grid,
+      .story-grid,
+      .metrics,
+      .roadmap {
+        grid-template-columns: 1fr;
+      }
+
+      .journey {
+        grid-template-columns: 1fr;
+      }
+
+      .journey-step:not(:last-child)::after {
+        content: "↓";
+        top: auto;
+        right: 50%;
+        bottom: -17px;
+        transform: translateX(50%);
+      }
+
+      .dots {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+  <nav class="dots" aria-label="Slide navigation"></nav>
+  <div class="kbd-hint">Arrow keys · Space · Home · End · Esc</div>
+
+  <main>
+    <section id="cover" aria-label="Cover">
+      <div class="slide cover-layout">
+        <div class="hero-card">
+          <div>
+            <p class="eyebrow">Final Project · BFS health finance</p>
+            <h1>C2 Financing Basis Summary</h1>
+          </div>
+          <p class="cover-pitch">Helping Responsible Payers clearly understand what amount is financed, what is excluded, and what commitment they are making before confirming an installment agreement.</p>
+          <div class="meta">
+            <span class="pill orange">Oliver Schlink · Product School PM Cohort · Oct 2026</span>
+            <span class="pill cyan">Product School Certification</span>
+            <span class="pill teal">Riverty business-unit case</span>
+          </div>
+          <div class="cover-footer">
+            <div class="link-card">
+              <div class="label">Repo URL</div>
+              <a href="https://github.com/o-schlink/pm-final-project" target="_blank" rel="noreferrer">https://github.com/o-schlink/pm-final-project</a>
+            </div>
+            <div class="link-card">
+              <div class="label">Prototype</div>
+              <a href="https://github.com/o-schlink/pm-final-project/tree/main/06-launch" target="_blank" rel="noreferrer">https://github.com/o-schlink/pm-final-project/tree/main/06-launch</a>
+            </div>
+            <div class="link-card">
+              <div class="label">One-line pitch</div>
+              <p class="small">Clarity before commitment for Responsible Payers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="strategy" aria-label="Slide 5 Strategy">
+      <div class="slide">
+        <div class="slide-header">
+          <div>
+            <p class="eyebrow">Slide 5 · Strategy</p>
+            <h2>Problem, Value & Hypothesis</h2>
+          </div>
+          <span class="pill cyan">Module 1 + 3</span>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <p class="eyebrow">Problem statement hook</p>
+            <p>Responsible Payers often cannot clearly tell whether an installment plan covers the full treatment cost, a single invoice, a co-payment, or a remaining balance. This creates post-creation clarification needs and makes BFS’s installment offering harder to scale across verticals without bespoke configurations.</p>
+          </article>
+          <article class="card">
+            <p class="eyebrow">Value proposition</p>
+            <p>For Responsible Payers, the Financing Basis Summary explains the financed amount, exclusions, monthly payment, duration, and total repayment before confirmation. For BFS, this creates a reusable clarity pattern that supports scalable vertical expansion without redesigning risk or regulatory foundations.</p>
+          </article>
+        </div>
+        <article class="card callout big-callout">
+          <p class="eyebrow">Data-backed hypothesis</p>
+          <p>Based on qualitative evidence from Responsible Payers and quantitative evidence that 46.2K of 316K agreements, around 14.6%, have post-creation manual contact, we believe that adding one pre-confirmation Financing Basis Summary screen will reduce manual contact by improving payer understanding. Success will be measured by a synthetic target of 2 percentage points absolute reduction, from 14.6% to 12.6%, while protecting activation rate and payment health.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="research" aria-label="Slide 6 Research">
+      <div class="slide">
+        <div class="slide-header">
+          <div>
+            <p class="eyebrow">Slide 6 · Research</p>
+            <h2>Status Quo Is The Competitor</h2>
+          </div>
+          <span class="pill teal">Module 2</span>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <p class="eyebrow">Competitive analysis / workaround</p>
+            <p>The real competitor is the status quo: Responsible Payers rely on informal handoffs, phone calls, emails, forwarded links, invoices, treatment plans and partner explanations to understand what they are paying for. This workaround is fragile because the payer, service recipient and decision maker may differ, and because treatment costs, invoices, co-payments and reimbursements do not always happen at the same time.</p>
+          </article>
+          <article class="card callout">
+            <p class="eyebrow">Moment of misery</p>
+            <h3>The payer cannot confidently identify what they are committing to before confirmation.</h3>
+            <p class="small muted">The journey breaks when real-world roles, invoices, reimbursements and cost timing do not match the standard product flow.</p>
+          </article>
+        </div>
+        <div>
+          <p class="eyebrow">Journey map</p>
+          <div class="journey" aria-label="Journey map">
+            <div class="journey-step"><strong>Receive payment option</strong><p class="small">A payer sees an installment option connected to a service.</p></div>
+            <div class="journey-step"><strong>Check roles</strong><p class="small">They check who pays and who receives the service.</p></div>
+            <div class="journey-step misery"><strong>Compare amounts</strong><p class="small">Treatment estimate, invoice, reimbursement and financed amount collide.</p></div>
+            <div class="journey-step"><strong>Understand exclusions</strong><p class="small">They need future changes and exclusions made explicit.</p></div>
+            <div class="journey-step"><strong>Confirm with clarity</strong><p class="small">They confirm only when the commitment is clear.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="blueprint" aria-label="Slide 7 Blueprint">
+      <div class="slide">
+        <div class="slide-header">
+          <div>
+            <p class="eyebrow">Slide 7 · Blueprint</p>
+            <h2>Roadmap, Scope & Prototype</h2>
+          </div>
+          <a class="button" href="https://github.com/o-schlink/pm-final-project/tree/main/06-launch" target="_blank" rel="noreferrer">View prototype</a>
+        </div>
+        <div>
+          <p class="eyebrow">Prioritisation / roadmap</p>
+          <div class="roadmap">
+            <article class="lane">
+              <h3>Now <span class="pill teal">Test</span></h3>
+              <ul>
+                <li>C2 Financing Basis Summary</li>
+                <li>C3 Payment Commitment Preview</li>
+                <li>C12 Self-Service Funnel & Contact Reason Tracking</li>
+              </ul>
+            </article>
+            <article class="lane">
+              <h3>Next <span class="pill blue">Extend</span></h3>
+              <ul>
+                <li>Plan-change impact preview</li>
+                <li>Returned direct-debit resolution</li>
+                <li>Partner-context communication</li>
+              </ul>
+            </article>
+            <article class="lane">
+              <h3>Later <span class="pill violet">Scale</span></h3>
+              <ul>
+                <li>Larger data-model work</li>
+                <li>Plan-management work</li>
+                <li>Exception-tracking work</li>
+              </ul>
+            </article>
+            <article class="lane">
+              <h3>Cut <span class="pill pink">Defer</span></h3>
+              <ul>
+                <li>Partner prefill</li>
+                <li>Configurable rule-engine build</li>
+                <li>Platform rebuild before validation</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <p class="eyebrow">Roadmap rationale</p>
+            <p>NOW: C2 Financing Basis Summary, C3 Payment Commitment Preview and C12 Self-Service Funnel & Contact Reason Tracking. These test the core assumption: clearer pre-confirmation information reduces post-creation manual contact. NEXT: plan-change impact preview, returned direct-debit resolution and partner-context communication. LATER: larger data-model, plan-management and exception-tracking work. CUT from pilot: partner prefill and configurable rule-engine build, because they risk turning the pilot into a platform rebuild before the clarity assumption is validated.</p>
+          </article>
+          <article class="card callout">
+            <p class="eyebrow">PRD highlights</p>
+            <p>The prototype focuses on one pre-confirmation Financing Basis Summary screen. It shows the financed amount, financing basis type, included and excluded amounts, monthly payment, duration and total repayment before confirmation. It also highlights payer vs. service recipient, future exclusions, and help intent. Out of scope: eligibility logic, risk decisioning, partner integration, contract generation, payment collection and adding later invoices to an active plan.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="validation" aria-label="Slide 8 Validation">
+      <div class="slide">
+        <div class="slide-header">
+          <div>
+            <p class="eyebrow">Slide 8 · Validation</p>
+            <h2>Experiment Plan</h2>
+          </div>
+          <span class="pill violet">Module 5</span>
+        </div>
+        <div class="experiment-grid">
+          <article class="card callout">
+            <p class="eyebrow">Hypothesis</p>
+            <p>A/B test one added pre-confirmation Financing Basis Summary screen against the current confirmation experience. Primary metric: post-creation manual contact rate within 30 days after agreement creation. Baseline: 14.6% overall, equal to 46.2K of 316K agreements. Synthetic MDE: 2 percentage point absolute reduction, from 14.6% to 12.6%.</p>
+          </article>
+          <div class="metrics">
+            <article class="metric">
+              <div class="metric-label">Baseline</div>
+              <p class="metric-value">14.6%</p>
+              <p>Post-creation manual contact rate</p>
+            </article>
+            <article class="metric">
+              <div class="metric-label">Synthetic MDE</div>
+              <p class="metric-value">2pp</p>
+              <p>Absolute reduction to 12.6%</p>
+            </article>
+            <article class="metric">
+              <div class="metric-label">Sample</div>
+              <p class="metric-value">5,166</p>
+              <p>Agreements per arm</p>
+            </article>
+            <article class="metric">
+              <div class="metric-label">Window</div>
+              <p class="metric-value">30d</p>
+              <p>Post-creation observation</p>
+            </article>
+          </div>
+        </div>
+        <div class="comparison">
+          <article class="card">
+            <p class="eyebrow">Control</p>
+            <p class="small">Current confirmation experience without a dedicated financing-basis summary.</p>
+          </article>
+          <article class="card">
+            <p class="eyebrow">Variant</p>
+            <p class="small">One added pre-confirmation Financing Basis Summary screen.</p>
+          </article>
+        </div>
+        <article class="card">
+          <p class="eyebrow">Guardrails and decision rules</p>
+          <ul class="rule-list">
+            <li>Guardrails: agreement completion / activation rate must not drop by more than 1 percentage point, and payment health must not worsen, measured by direct debit return rate and extension rate.</li>
+            <li>Diagnostic metric: correct understanding rate and contact reasons tagged as financing-basis confusion.</li>
+            <li>Ship only if the contact-rate reduction is significant, guardrails remain healthy, and diagnostic evidence supports clarity as the driver.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="launch" aria-label="Slide 9 Launch">
+      <div class="slide">
+        <div class="slide-header">
+          <div>
+            <p class="eyebrow">Slide 9 · Launch</p>
+            <h2>GTM Strategy & Success Dashboard</h2>
+          </div>
+          <span class="pill orange">Module 6</span>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <p class="eyebrow">GTM strategy</p>
+            <p>Launch goal: Conversion. This is a targeted M-tier experiment for Responsible Payers in the installment confirmation flow, supported by internal enablement for Customer Support, partner-facing teams and selected pilot partners. Channels: in-flow product communication, internal enablement note, and partner pilot briefing. The launch avoids broad awareness activity because the feature first needs to prove that clearer pre-confirmation information reduces post-creation manual contact.</p>
+            <div class="channel-pills" aria-label="GTM summary">
+              <span class="pill orange">Goal · Conversion</span>
+              <span class="pill cyan">Audience · Responsible Payers</span>
+              <span class="pill teal">Tier · M Targeted</span>
+              <span class="pill blue">Channel · In-flow</span>
+              <span class="pill violet">Channel · Enablement</span>
+              <span class="pill pink">Channel · Pilot briefing</span>
+            </div>
+          </article>
+          <article class="card callout">
+            <p class="eyebrow">Success metrics + bad signal</p>
+            <p>Primary metric: post-creation manual contact rate within 30 days after agreement creation. Diagnostic metric: correct understanding rate and contact reasons tagged as financing-basis confusion. Guardrails: agreement completion / activation rate must not drop by more than 1 percentage point, and payment health must not worsen. Bad signal: manual contact rate decreases, but activation drops, payment health worsens, or help-intent / comprehension failures increase in the variant.</p>
+          </article>
+        </div>
+        <div class="metrics">
+          <article class="metric">
+            <div class="metric-label">Primary</div>
+            <p class="metric-value">Contact</p>
+            <p>Post-creation manual contact rate</p>
+          </article>
+          <article class="metric">
+            <div class="metric-label">Diagnostic</div>
+            <p class="metric-value">Clarity</p>
+            <p>Correct understanding rate</p>
+          </article>
+          <article class="metric">
+            <div class="metric-label">Guardrail</div>
+            <p class="metric-value">Activation</p>
+            <p>No drop greater than 1pp</p>
+          </article>
+          <article class="metric warning">
+            <div class="metric-label">Bad signal</div>
+            <p class="metric-value">Trade-off</p>
+            <p>Contacts fall while quality worsens</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="story" aria-label="Slide 10 Story">
+      <div class="slide">
+        <div class="slide-header">
+          <div>
+            <p class="eyebrow">Slide 10 · Story</p>
+            <h2>What Changed In The Thinking</h2>
+          </div>
+          <span class="pill pink">Reflection</span>
+        </div>
+        <div class="story-grid">
+          <article class="card warning">
+            <p class="eyebrow">Friction points + aha moment</p>
+            <p>The hardest part was separating real evidence from attractive AI-generated structure. AI helped us move fast, but it also tended to smooth over important tensions: payer clarity vs. partner workflow, vertical-specific needs vs. scalable core, and contact reduction vs. healthy activation. The aha moment was realizing that the best first move is not the biggest platform solution, but a focused test of the clearest pain point: whether Responsible Payers understand what they are committing to before confirmation.</p>
+          </article>
+          <article class="card callout">
+            <p class="eyebrow">Key takeaways / next</p>
+            <p>Key takeaway: good product work is less about generating features and more about making assumptions testable. Next, I would validate whether financing-basis confusion is truly a major driver of post-creation contact by combining the A/B test with comprehension checks and contact-reason tagging. If validated, I would scale the clarity pattern first, then decide which deeper platform capabilities are justified.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="submit" aria-label="Thank you and submit">
+      <div class="slide thank-you">
+        <div class="hero-card">
+          <p class="eyebrow">Thank you</p>
+          <h2>Ready to submit</h2>
+          <p class="cover-pitch">C2 Financing Basis Summary · Oliver Schlink · Product School PM Cohort · Oct 2026</p>
+          <div class="meta">
+            <a class="button" href="https://github.com/o-schlink/pm-final-project" target="_blank" rel="noreferrer">Open repo</a>
+            <a class="button" href="https://github.com/o-schlink/pm-final-project/tree/main/06-launch" target="_blank" rel="noreferrer">Open prototype</a>
+            <span class="pill teal">Submit to the learning platform</span>
+          </div>
+          <p class="repo-link">https://github.com/o-schlink/pm-final-project</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const sections = Array.from(document.querySelectorAll("section"));
+    const dots = document.querySelector(".dots");
+    const progressBar = document.getElementById("progressBar");
+    let current = 0;
+
+    sections.forEach((section, index) => {
+      const button = document.createElement("button");
+      button.className = "dot";
+      button.type = "button";
+      button.setAttribute("aria-label", `Go to slide ${index + 1}`);
+      button.addEventListener("click", () => goTo(index));
+      dots.appendChild(button);
+    });
+
+    const dotButtons = Array.from(document.querySelectorAll(".dot"));
+
+    function goTo(index) {
+      const bounded = Math.max(0, Math.min(index, sections.length - 1));
+      sections[bounded].scrollIntoView({ behavior: "smooth", block: "start" });
+      current = bounded;
+      updateUi();
+    }
+
+    function updateUi() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
+      progressBar.style.width = `${progress}%`;
+
+      const midpoint = scrollTop + window.innerHeight / 2;
+      current = sections.reduce((active, section, index) => {
+        return section.offsetTop <= midpoint ? index : active;
+      }, 0);
+
+      dotButtons.forEach((dot, index) => {
+        dot.classList.toggle("active", index === current);
+        dot.setAttribute("aria-current", index === current ? "true" : "false");
+      });
+    }
+
+    window.addEventListener("scroll", updateUi, { passive: true });
+    window.addEventListener("resize", updateUi);
+    window.addEventListener("keydown", (event) => {
+      const tag = document.activeElement && document.activeElement.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+
+      if (event.key === "ArrowDown" || event.key === "PageDown" || event.key === " ") {
+        event.preventDefault();
+        goTo(current + 1);
+      }
+
+      if (event.key === "ArrowUp" || event.key === "PageUp") {
+        event.preventDefault();
+        goTo(current - 1);
+      }
+
+      if (event.key === "Home") {
+        event.preventDefault();
+        goTo(0);
+      }
+
+      if (event.key === "End") {
+        event.preventDefault();
+        goTo(sections.length - 1);
+      }
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        goTo(0);
+      }
+    });
+
+    updateUi();
+  </script>
+</body>
+</html>
