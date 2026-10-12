@@ -27,8 +27,6 @@
 >
 > We will measure success as a synthetic target of 2 percentage points absolute reduction in post-creation manual contact rate, from 14.6% to 12.6%, with p < 0.05 and 80% power. We will protect agreement completion / activation rate and payment health throughout the test.
 
-We will measure success as a synthetic target of 2 percentage points absolute reduction in post-creation manual contact rate, from 14.6% to 12.6%, with p < 0.05 and 80% power. We will protect agreement completion / activation rate and payment health throughout the test.
-
 ## Shipping criteria
 > We will **ship** if the variant reduces post-creation manual contact rate by at least 2 percentage points versus control, from 14.6% toward 12.6%, with p < 0.05 and at least 5,166 agreements per arm observed through the full 30-day post-creation contact window.
 >
